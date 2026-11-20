@@ -288,9 +288,9 @@ export async function reviewApplication(actor: TenantActor, id: string, input: z
     const extraTrucks = await db.select().from(subconApplicationTrucks).where(eq(subconApplicationTrucks.applicationId, id));
     await db.insert(trucks).values(
       [
-        { plate: a.plateNumber, type: a.truckType, cap: a.capacityKg },
-        ...extraTrucks.map((t) => ({ plate: t.plateNumber, type: t.truckType, cap: t.capacityKg })),
-      ].map((t) => ({ tenantId: company.partnerTenantId, plate: t.plate, truckType: t.type.replace(/^Other: /, ""), capacityKg: t.cap ?? 1000 })),
+        { plate: a.plateNumber, type: a.truckType, size: a.truckSize, cap: a.capacityKg },
+        ...extraTrucks.map((t) => ({ plate: t.plateNumber, type: t.truckType, size: t.truckSize, cap: t.capacityKg })),
+      ].map((t) => ({ tenantId: company.partnerTenantId, plate: t.plate, truckType: t.type.replace(/^Other: /, ""), bodySize: t.size.replace(/^Other: /, ""), capacityKg: t.cap ?? 1000 })),
     );
     await db.update(subconApplications).set({ status: "approved", reviewedBy: actor.userId, reviewedAt: now, reviewNote: input.note, partnerTenantId: company.partnerTenantId }).where(eq(subconApplications.id, id));
     await writeAudit(db, { tenantId: actor.tenantId, actorUserId: actor.userId, action: "application.approve", entityType: "subcon_application", entityId: id, newValue: { partnerTenantId: company.partnerTenantId }, requestId: ctx.requestId });

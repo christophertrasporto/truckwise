@@ -63,9 +63,10 @@ service. The two ways around it are to use a subdomain, or to move the domain's 
 
 ## 5. Create your owner login on the live site
 
-In Railway, open the service's shell (or run one-off command) and run `npm run db:seed:live`. It creates the company and the
-owner login from the `OWNER_*` variables. Then delete `OWNER_PASSWORD` from Railway's variables.
-Sign in at your address and change the password on the Account page.
+The simplest way is from your own computer, pointed at the Supabase database. In PowerShell, in the project folder, set
+`DATABASE_ADMIN_URL`, `COMPANY_NAME`, `OWNER_NAME`, `OWNER_EMAIL` and `OWNER_PASSWORD` (for example `$env:OWNER_EMAIL = "you@example.com"`)
+and run `npm run db:seed:live`. It creates the company and the owner login. Close the PowerShell window afterwards so the
+password is not left behind. Sign in at your address and change the password on the Account page.
 
 To add your platform-administrator access (the Platform menu), tell me and I will give you the one safe command for it.
 

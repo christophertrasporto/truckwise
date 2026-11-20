@@ -27,7 +27,7 @@ const canSeeSalary = (a: TenantActor) => a.role === "owner" || a.role === "accou
 const hidden = (a: TenantActor) => (canSeeSalary(a) ? [] : [...SENSITIVE_COSTS]);
 
 /** Month boundaries in Asia/Manila (UTC+8, no DST). */
-function monthRange(month: string): { from: Date; to: Date; firstDay: string; nextFirstDay: string } {
+export function monthRange(month: string): { from: Date; to: Date; firstDay: string; nextFirstDay: string } {
   if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(month)) throw new HttpError(400, "Use a month like 2026-11");
   const [y, m] = month.split("-").map(Number);
   const nextY = m === 12 ? y + 1 : y;

@@ -59,7 +59,9 @@ export type Action =
   | "earnings:read"
   | "cost:read"
   | "cost:write"
-  | "pnl:read";
+  | "pnl:read"
+  | "income:read"
+  | "income:write";
 
 const hauler = ["owner", "ops_manager", "dispatcher", "accountant"] as const;
 
@@ -106,6 +108,9 @@ const matrix: Record<Exclude<Action, "tenant:create" | "tenant:suspend" | "tenan
   "cost:write": ["owner", "ops_manager", "accountant"],
   // Company-wide profit includes salaries.
   "pnl:read": ["owner", "accountant"],
+  // Money received from clients, recorded by hand.
+  "income:read": ["owner", "accountant"],
+  "income:write": ["owner", "accountant"],
   "pod:submit_proxy": ["owner", "ops_manager", "dispatcher"],
   "pod:review": ["owner", "ops_manager", "dispatcher"],
   // Which documents each client needs per trip, and waiving one for a trip.

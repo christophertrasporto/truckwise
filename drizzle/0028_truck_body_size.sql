@@ -1,0 +1,1 @@
+ALTER TABLE "trucks" ADD COLUMN "body_size" text;

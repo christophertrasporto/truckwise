@@ -183,6 +183,27 @@
       "when": 1795093924520,
       "tag": "0025_login_attempts_grants_and_lockdown",
       "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1795141587525,
+      "tag": "0026_company_income",
+      "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "7",
+      "when": 1795141587662,
+      "tag": "0027_company_income_rls",
+      "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "7",
+      "when": 1795141802807,
+      "tag": "0028_truck_body_size",
+      "breakpoints": true
     }
   ]
 }

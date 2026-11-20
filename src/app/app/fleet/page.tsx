@@ -33,7 +33,7 @@ export default async function FleetPage() {
               {trucks.map((t) => (
                 <tr key={t.id}>
                   <td className="mono">{t.plate}</td>
-                  <td>{t.truckType}</td>
+                  <td>{t.truckType}{t.bodySize ? `, ${t.bodySize}` : ""}</td>
                   <td>{t.capacityKg.toLocaleString()} kg</td>
                   <td><ExpiryBadge date={t.registrationExpiry} today={today} soon={soon} /></td>
                   <td><ExpiryBadge date={t.inspectionExpiry} today={today} soon={soon} /></td>

@@ -33,7 +33,7 @@ async function send(method: string, url: string, body: unknown) {
 
 export function FleetForms({ drivers }: { drivers: { userId: string; name: string }[] }) {
   const router = useRouter();
-  const [t, setT] = useState({ plate: "", truckType: TRUCK_TYPES[2] as string, capacityKg: "", registrationExpiry: "", inspectionExpiry: "" });
+  const [t, setT] = useState({ plate: "", truckType: TRUCK_TYPES[2] as string, capacityKg: "", bodySize: "", registrationExpiry: "", inspectionExpiry: "" });
   const [d, setD] = useState({ userId: drivers[0]?.userId ?? "", licenseNumber: "", licenseExpiry: "", phone: "" });
   const [tErr, setTErr] = useState<string | null>(null);
   const [dErr, setDErr] = useState<string | null>(null);
@@ -47,12 +47,13 @@ export function FleetForms({ drivers }: { drivers: { userId: string; name: strin
       plate: t.plate,
       truckType: t.truckType,
       capacityKg: Number(t.capacityKg),
+      bodySize: t.bodySize.trim() || undefined,
       registrationExpiry: t.registrationExpiry || undefined,
       inspectionExpiry: t.inspectionExpiry || undefined,
     });
     setBusy(false);
     if (!res.ok) return setTErr(res.error);
-    setT({ plate: "", truckType: TRUCK_TYPES[2], capacityKg: "", registrationExpiry: "", inspectionExpiry: "" });
+    setT({ plate: "", truckType: TRUCK_TYPES[2], capacityKg: "", bodySize: "", registrationExpiry: "", inspectionExpiry: "" });
     router.refresh();
   }
 

@@ -12,7 +12,7 @@ export const COST_CATEGORIES = [
   { key: "loading", label: "Loading and unloading" },
   { key: "meals", label: "Driver meals and allowance" },
   { key: "office", label: "Office and overhead" },
-  { key: "other", label: "Other" },
+  { key: "other", label: "Others" },
 ] as const;
 
 export type CostCategory = (typeof COST_CATEGORIES)[number]["key"];

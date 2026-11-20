@@ -206,3 +206,10 @@ Built on the existing company model (hauler and subcontractor companies); the si
 - **Not built**: documents are not attached to the invoice PDF yet; no "download everything" bundle; uploads do not work offline (online only); no notification when a document is uploaded (dispatch sees it on the trip page).
 - **Pay fields on a trip**: driver pay (own driver, the existing payout), a separate subcontractor rate (blank means the same as the driver pay) and helper pay (own trucks only; a subcontractor pays their own helper). Subcontractors see and are settled at their own rate; profit uses the subcontractor rate for subcontracted trips and driver pay plus helper pay for own-truck trips. All three can be changed later with a reason on record. Trips created before this keep working (no subcontractor rate, helper pay 0).
 - **Migrations**: 0021 to 0023.
+
+## Income ledger, spreadsheet import, truck body size
+
+- **Income** (`/app/income`, owner and accountant): money received from clients, by client and month, with "received minus costs". Cash record only; separate from trip invoices and trip profit. Entries are never edited or deleted, only voided with a reason.
+- **Spreadsheet import** (`scripts/import-costs.mts`): loads a sheet of date, type, category, amount, description into Costs and Income. Expense rows become costs (the description is kept; for Salary it is the person paid). A description starting DIESEL or RFID decides that category; PASSWAY, PASSTHRU or toll become Toll; plates named in the description (CCB, KAS, TYV, XJP) link the cost to that truck; income rows become payments from the client named in the category column. Safe to rerun (fixed keys). `--dry-run` shows what would happen; `--create-trucks` adds missing trucks; `--wipe-previous-import` clears an earlier import but only on a database on this computer.
+- **Trucks** now have an optional body size (for example 14ft), also carried over when a subcontractor application is approved.
+- **Migrations**: 0026 to 0028.

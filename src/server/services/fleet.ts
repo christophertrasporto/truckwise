@@ -15,6 +15,7 @@ export const truckInput = z.object({
   plate: z.string().trim().min(2).max(20).transform((v) => v.toUpperCase()),
   truckType: z.enum(TRUCK_TYPES),
   capacityKg: z.number().int().min(100).max(100_000),
+  bodySize: z.string().trim().max(30).optional(),
   registrationExpiry: isoDate.optional(),
   inspectionExpiry: isoDate.optional(),
 });

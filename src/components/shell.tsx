@@ -61,6 +61,7 @@ export async function Shell({ children }: { children: React.ReactNode }) {
             {(can(actor, "finance:read") || can(actor, "settlement:read_own")) && <Link href="/app/settlements">Settlements</Link>}
             {can(actor, "expense:review") && <Link href="/app/expenses">Expenses</Link>}
             {can(actor, "cost:read") && <Link href="/app/costs">Costs</Link>}
+            {can(actor, "income:read") && <Link href="/app/income">Income</Link>}
             {can(actor, "finance:read") && <Link href="/app/profit">Profit</Link>}
             {can(actor, "earnings:read") && <Link href="/app/earnings">Earnings</Link>}
             {can(actor, "settings:read") && <Link href="/app/settings">Settings</Link>}

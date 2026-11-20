@@ -474,6 +474,8 @@ export const trucks = pgTable(
     plate: text("plate").notNull(),
     truckType: text("truck_type").notNull(),
     capacityKg: integer("capacity_kg").notNull(),
+    /** Body length as people quote it when booking a truck, for example 14ft. Optional. */
+    bodySize: text("body_size"),
     registrationExpiry: date("registration_expiry", { mode: "string" }),
     inspectionExpiry: date("inspection_expiry", { mode: "string" }),
     status: truckStatus("status").notNull().default("active"),
@@ -1157,4 +1159,33 @@ export const tripDocumentFiles = pgTable(
     reviewNote: text("review_note"),
   },
   (t) => [uniqueIndex("trip_document_files_version_uq").on(t.documentId, t.version)],
+);
+
+// ---------------------------------------------------------------------------
+// Money received from clients, recorded by hand (payments, weekly remittances...). Separate from trip invoices.
+// ---------------------------------------------------------------------------
+
+export const companyIncome = pgTable(
+  "company_income",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    tenantId: uuid("tenant_id")
+      .notNull()
+      .references(() => tenants.id),
+    customerId: uuid("customer_id")
+      .notNull()
+      .references(() => customers.id),
+    amountCentavos: bigint("amount_centavos", { mode: "number" }).notNull(),
+    receivedOn: date("received_on", { mode: "string" }).notNull(),
+    note: text("note"),
+    createdBy: uuid("created_by")
+      .notNull()
+      .references(() => users.id),
+    idempotencyKey: text("idempotency_key").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    voidedAt: timestamp("voided_at", { withTimezone: true }),
+    voidedBy: uuid("voided_by").references(() => users.id),
+    voidReason: text("void_reason"),
+  },
+  (t) => [index("company_income_tenant_date_idx").on(t.tenantId, t.receivedOn), uniqueIndex("company_income_idem_uq").on(t.tenantId, t.idempotencyKey)],
 );
