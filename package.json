@@ -16,6 +16,7 @@
     "db:migrate": "tsx --env-file=.env scripts/migrate.mts",
     "db:migrate:live": "tsx scripts/migrate.mts",
     "db:seed:live": "tsx scripts/seed.mts",
+    "db:make-admin:live": "tsx scripts/make-platform-admin.mts",
     "db:seed": "tsx --env-file=.env scripts/seed.mts",
     "db:embedded": "tsx scripts/embedded-postgres.mts",
     "db:seed-demo": "tsx --env-file=.env scripts/seed-demo.mts",
